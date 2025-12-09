@@ -1,15 +1,9 @@
-# Nerfies
+# Grassland Degradation on the Mongolian Plateau: Classification and Predictive Modeling using Random Forest and SatMAE
 
-This is the repository that contains source code for the [Nerfies website](https://nerfies.github.io).
+CS461 Project
+By: Mia Zhou, Cindy Zhou, Xinyang Xu, Eric Huang
+University of Southern California
 
-If you find Nerfies useful for your work please cite:
-```
-@article{park2021nerfies
-  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
-  title     = {Nerfies: Deformable Neural Radiance Fields},
-  journal   = {ICCV},
-  year      = {2021},
-}
 ```
 
 # Website License

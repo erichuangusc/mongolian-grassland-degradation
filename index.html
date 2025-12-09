@@ -64,7 +64,7 @@
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">Grassland Degradation on the Mongolian Plateau: Classification and Predictive Modeling</h1>
           <div class="is-size-5 publication-authors">
-            <span class="author-block">Xiaoya Zhou,</span>
+            <span class="author-block">Mia Zhou,</span>
             <span class="author-block">Cindy Zhou,</span>
             <span class="author-block">Xinyang Xu,</span>
             <span class="author-block">Eric Huang</span>
@@ -150,13 +150,31 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Grassland degradation on the Mongolian Plateau is accelerating under the combined pressure of climate change and human activities.
-            In this project, we frame the prediction of bare soil one year in advance as a supervised classification problem with a resolution of 10m.
-            For each pixel or 224x224 Sentinel-2 chip, we predict whether it will be bare or non-bare-dominated in year <em>t+1</em>.
+            Grassland degradation on the Mongolian Plateau is accelerating 
+            under the combined pressure of climate change and human 
+            activities, turning large areas into persistent bare soil and
+            major dust sources. Recent work has mapped long-term land
+            degradation patterns using coarse resolution NDVI and land
+            cover products, but has remained largely descriptive and retrospective. 
+            In this project, we frame the prediction of bare
+            soil one year in advance as a supervised classification problem 
+            with a resolution of 10 m. For each pixel or 224×224
+            Sentinel-2 chip, we predict whether it will be bare or non-
+            bare-dominated in year <em>t+1</em>, given satellite imagery and precipitation 
+            up to year <em>t</em>. We construct labels from normalized
+            Dynamic World bare probabilities in the following years and
+            fuse multi-season Sentinel-2 mosaics with annual precipitation 
+            aggregates from TerraClimate to form the inputs. The
+            spectral information of Sentinel-2 is interpreted using the official 
+            band specifications of Sentinel Hub.
           </p>
           <p>
-            Overall, our findings show that short-horizon desertification at 10m resolution is meaningfully predictable.
-            Transformer models (SatMAE) that have representation learning capabilities can substantially outperform traditional feature-engineered classifiers for this task.
+            Overall, our findings show that (1) short-horizon desertification 
+            at 10 m resolution is meaningfully predictable from recent 
+            imagery and climate history, and (2) transformer models that have
+            representation learning capabilities can substantially outperform
+            traditional feature-engineered classifiers for
+            this task, especially in spatially heterogeneous desert margins. 
           </p>
         </div>
       </div>
