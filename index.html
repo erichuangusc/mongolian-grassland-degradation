@@ -105,43 +105,6 @@
     </div>
   </div>
 </section>
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        
-        <div class="item">
-          <img src="./static/images/figure2.png" 
-               alt="Sentinel-2 Imagery Sample" 
-               style="height: 400px; width: 100%; object-fit: contain;">
-          <p class="has-text-centered is-size-5">Sentinel-2 Input Data</p>
-        </div>
-
-        <div class="item">
-          <img src="./static/images/figure3.png" 
-               alt="TerraClimate Precipitation" 
-               style="height: 400px; width: 100%; object-fit: contain;">
-          <p class="has-text-centered is-size-5">TerraClimate Precipitation</p>
-        </div>
-
-        <div class="item">
-          <img src="./static/images/sample_band.png" 
-               alt="Spectral Band Feature" 
-               style="height: 400px; width: 100%; object-fit: contain;">
-          <p class="has-text-centered is-size-5">Spectral Band Features</p>
-        </div>
-
-        <div class="item">
-          <img src="./static/images/test_acc.png" 
-               alt="SatMAE Test Accuracy" 
-               style="height: 400px; width: 100%; object-fit: contain;">
-          <p class="has-text-centered is-size-5">SatMAE Prediction Accuracy</p>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
 
 <section class="section">
   <div class="container is-max-desktop">
@@ -173,8 +136,8 @@
             at 10 m resolution is meaningfully predictable from recent 
             imagery and climate history, and (2) transformer models that have
             representation learning capabilities can substantially outperform
-            traditional feature-engineered classifiers for
-            this task, especially in spatially heterogeneous desert margins. 
+            traditional feature-engineered classifiers forn this task, 
+            especially in spatially heterogeneous desert margins. 
           </p>
         </div>
       </div>
@@ -184,17 +147,47 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Data & Methodology</h2>
+    
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Data & Study Regions</h2>
         <div class="content has-text-justified">
+          <h3 class="title is-4">Study Regions</h3>
           <p>
-            We define land degradation forecasting as a binary classification problem. We compare <strong>Random Forest</strong> (feature engineering) against <strong>SatMAE</strong> (representation learning).
-            The model inputs include multi-season Sentinel-2 mosaics and TerraClimate precipitation statistics.
+            We focus on two sub-regions of the Mongolian Plateau that capture contrasting degradation regimes:
+            <strong>Kubuqi</strong>, a dune field in Inner Mongolia characterized by extensive bare sand and engineered vegetation belts, and
+            <strong>East MN</strong>, an eastern Mongolian grassland region where bare soil appears mainly in patches and along disturbance corridors.
+          </p>
+
+          <h3 class="title is-4">Data Sources</h3>
+          <p>
+            For each region, we assemble a dataset at 10 m resolution consisting of three primary sources:
+          </p>
+          <ul>
+            <li>
+              <strong>Sentinel-2 (L2A):</strong> We utilize six spectral bands with strong vegetation and soil sensitivity: Blue (B2), Green (B3), Red (B4), NIR (B8), SWIR1 (B11), and SWIR2 (B12).
+            </li>
+            <li>
+              <strong>Dynamic World:</strong> We use the V1 product to extract per-pixel "bare soil" probabilities, which serve as the basis for our ground-truth forecasting labels.
+            </li>
+            <li>
+              <strong>TerraClimate:</strong> To capture inter-annual moisture variability, we integrate 4 km gridded annual precipitation aggregates from 1958 to present.
+            </li>
+          </ul>
+
+          <h3 class="title is-4">Label Construction & Splitting</h3>
+          <p>
+            We define the forecasting target as a binary classification problem. Using Dynamic World probabilities, we assign a "Bare" label (1) if the probability exceeds <strong>0.30</strong> and a "Vegetated" label (0) if it is below <strong>0.11</strong> (1/9). Pixels with ambiguous probabilities between these thresholds are discarded to ensure high-quality training data.
+          </p>
+          <p>
+            The models are trained on data from years <strong>2022 and 2023</strong> and evaluated on a strictly held-out test set from <strong>2024</strong> to assess forecasting capability.
           </p>
         </div>
-        
+      </div>
+    </div>
+
+    <br> <div class="columns is-centered">
+      <div class="column is-full-width">
         <div class="columns is-vcentered">
           <div class="column has-text-centered">
             <h4 class="title is-5">Bare Ground (Dunes)</h4>
@@ -209,36 +202,144 @@
         </div>
       </div>
     </div>
+    
+  </div>
+</section>
 
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Key Findings</h2>
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Methodology</h2>
         <div class="content has-text-justified">
+          
+          <h3 class="title is-4">Problem Formulation</h3>
+          <p>
+            As aforementioned above, we frame land degradation forecasting as a supervised binary classification problem. The goal is to predict the land cover state (Bare vs. Vegetated) of a location in year <strong><em>t+1</em></strong>, given only satellite imagery and climate data available up to year <strong><em>t</em></strong>. This ensures a strict forecasting regime with no temporal data leakage.
+          </p>
+
+          <h3 class="title is-4">Comparative Modeling Approaches</h3>
+          <p>
+            We investigate two distinct paradigms for this task:
+          </p>
           <ul>
-             <li>
-                <strong>Kubuqi (Deterministic System):</strong> The SatMAE forecaster attained <strong>98.4% top-1 accuracy</strong>.
-                The system exhibits strong short-term memory, driven by stable dune interiors and engineered shelter belts.
-             </li>
-             <li>
-                <strong>East MN (Policy-Driven):</strong> Results show a sharp reduction in bare area, consistent with net revegetation policies.
-                Recovery is better explained by human interventions visible in imagery rather than short-term climate anomalies.
-             </li>
+            <li>
+              <strong>Random Forest (Feature Engineering):</strong> We train a pixel-level classifier on a 58-dimensional vector of handcrafted features. This includes raw Sentinel-2 reflectances, derived spectral indices (NDVI, NDMI, NDBI) to capture vegetation and moisture, and multi-year precipitation statistics from TerraClimate.
+            </li>
+            <li>
+              <strong>SatMAE (Representation Learning):</strong> We employ a Masked Autoencoder Vision Transformer (ViT) operating at the chip level. The model takes a sequence of temporal Sentinel-2 RGB composites (224x224 pixels) and a precipitation map as input, learning spatiotemporal representations directly from the raw data without manual index calculation.
+            </li>
           </ul>
+
+          <h3 class="title is-4">Input Feature Visualization</h3>
+          <p>
+            The models fuse high-resolution optical data with coarse-resolution climate variables. Below are examples of the input features used for training:
+          </p>
         </div>
       </div>
     </div>
-    
+
+    <div class="hero is-light is-small" style="margin-top: 1rem; border-radius: 8px;">
+      <div class="hero-body">
+        <div class="container">
+          <div id="results-carousel" class="carousel results-carousel">
+            
+            <div class="item">
+              <img src="./static/images/figure2.png" 
+                   alt="Sentinel-2 Input Mosaic" 
+                   style="height: 350px; width: 100%; object-fit: contain;">
+              <p class="has-text-centered is-size-6">Sentinel-2 Input Data</p>
+            </div>
+
+            <div class="item">
+              <img src="./static/images/figure3.png" 
+                   alt="TerraClimate Precipitation" 
+                   style="height: 350px; width: 100%; object-fit: contain;">
+              <p class="has-text-centered is-size-6">TerraClimate Precipitation</p>
+            </div>
+
+            <div class="item">
+              <img src="./static/images/sample_band.png" 
+                   alt="Single Spectral Band" 
+                   style="height: 350px; width: 100%; object-fit: contain;">
+              <p class="has-text-centered is-size-6">Spectral Band Feature (Sentinel-2)</p>
+            </div>
+
+            <div class="item">
+              <img src="./static/images/sample_band_precip.png" 
+                   alt="Precipitation Grid" 
+                   style="height: 350px; width: 100%; object-fit: contain;">
+              <p class="has-text-centered is-size-6">Precipitation Feature Grid</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Results</h2>
+        <div class="content has-text-justified">
+          
+          <h3 class="title is-4">1. Kubuqi: A Deterministic System</h3>
+          <p>
+            In the Kubuqi dune field, the test year 2024 is heavily dominated by bare soil (positive rate ≈ 0.789).
+            In this setting, the Sentinel-2 only <strong>Random Forest</strong> achieved exceptional performance, reaching a test accuracy of <strong>0.992</strong> and an AUROC of <strong>0.999</strong>.
+            Similarly, the <strong>SatMAE</strong> forecaster attained a top-1 accuracy of <strong>98.4%</strong> on the held-out test set.
+          </p>
+          <p>
+            Crucially, adding precipitation features provided <strong>zero marginal gain</strong>. The forward selection algorithm rejected all climate features, indicating that at 10 m resolution, the future state is almost entirely determined by the current land cover configuration (stable dunes vs. engineered shelter belts).
+          </p>
+
+          <h3 class="title is-4">2. East MN: Policy-Driven Recovery</h3>
+          <p>
+            The East MN region presented a massive shift toward vegetation, with bare pixels constituting only <strong>1.6%</strong> of the 2024 test area.
+            Performance was lower here due to this extreme imbalance; the Random Forest achieved an AUROC of <strong>0.616</strong> and Balanced Accuracy of <strong>0.599</strong>.
+          </p>
+          <p>
+            The models excelled at identifying vegetation (Precision ≈ 0.988) but struggled with rare bare patches. Consistent with Kubuqi, adding TerraClimate precipitation improved the AUROC by a negligible <strong>0.002</strong>. This suggests the recovery is driven by local human interventions (e.g., grazing management) visible in the imagery, rather than short-term rainfall anomalies.
+          </p>
+
+          <h3 class="title is-4">3. SatMAE Training Dynamics</h3>
+          <p>
+            The SatMAE model showed smooth convergence during fine-tuning. The training loss dropped rapidly in the first 500 steps, while validation accuracy on Kubuqi climbed from a majority baseline of ~90% to a plateau near <strong>98.4%</strong> by step 2200.
+          </p>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered is-vcentered" style="margin-top: 20px;">
+      <div class="column is-5 has-text-centered">
+        <img src="./static/images/train_loss.png" 
+             alt="Training Loss Curve" 
+             style="border: 1px solid #ddd; width: 100%; height: auto;">
+        <p class="is-size-6"><strong>Figure 9:</strong> SatMAE Training Loss Convergence.</p>
+      </div>
+      <div class="column is-5 has-text-centered">
+        <img src="./static/images/test_acc.png" 
+             alt="Test Accuracy Curve" 
+             style="border: 1px solid #ddd; width: 100%; height: auto;">
+        <p class="is-size-6"><strong>Figure 10:</strong> SatMAE Test Accuracy (Kubuqi).</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{zhou2026grassland,
+    <pre><code>@article{zhou2025grassland,
   author    = {Zhou, Xiaoya and Zhou, Cindy and Xu, Xinyang and Huang, Eric},
   title     = {Grassland Degradation on the Mongolian Plateau: Classification and Predictive Modeling},
   institution = {University of Southern California},
-  year      = {2026},
+  year      = {2025},
 }</code></pre>
   </div>
 </section>

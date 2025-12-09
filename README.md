@@ -1,7 +1,9 @@
 # Grassland Degradation on the Mongolian Plateau: Classification and Predictive Modeling using Random Forest and SatMAE
 
 CS461 Project
+
 By: Mia Zhou, Cindy Zhou, Xinyang Xu, Eric Huang
+
 University of Southern California
 
 ```
