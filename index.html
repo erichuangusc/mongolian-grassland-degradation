@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Grassland Degradation on the Mongolian Plateau: Classification and Predictive Modeling using Random Forest and SatMAE.">
+  <meta name="keywords" content="Land Degradation, Mongolia, SatMAE, Remote Sensing, Sentinel-2">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grassland Degradation on the Mongolian Plateau</title>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="#">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+      <div class="navbar-item">
+        <a class="navbar-link" href="https://erichuangusc.github.io/mongolian-grassland-degradation">
+          Project Page
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Grassland Degradation on the Mongolian Plateau: Classification and Predictive Modeling</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Xiaoya Zhou,</span>
+            <span class="author-block">Cindy Zhou,</span>
+            <span class="author-block">Xinyang Xu,</span>
+            <span class="author-block">Eric Huang</span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">University of Southern California</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://erichuangusc.github.io/mongolian-grassland-degradation" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Website</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/figure1.png" alt="Mongolia Study Region Map" style="width:100%; height:auto;">
+      <h2 class="subtitle has-text-centered">
+        Mapping land degradation patterns using <strong>Sentinel-2</strong> imagery and <strong>Dynamic World</strong> probabilities to predict bare soil expansion one year in advance.
+      </h2>
+    </div>
+  </div>
+</section>
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        
+        <div class="item">
+          <img src="./static/images/figure2.png" 
+               alt="Sentinel-2 Imagery Sample" 
+               style="height: 400px; width: 100%; object-fit: contain;">
+          <p class="has-text-centered is-size-5">Sentinel-2 Input Data</p>
+        </div>
+
+        <div class="item">
+          <img src="./static/images/figure3.png" 
+               alt="TerraClimate Precipitation" 
+               style="height: 400px; width: 100%; object-fit: contain;">
+          <p class="has-text-centered is-size-5">TerraClimate Precipitation</p>
+        </div>
+
+        <div class="item">
+          <img src="./static/images/sample_band.png" 
+               alt="Spectral Band Feature" 
+               style="height: 400px; width: 100%; object-fit: contain;">
+          <p class="has-text-centered is-size-5">Spectral Band Features</p>
+        </div>
+
+        <div class="item">
+          <img src="./static/images/test_acc.png" 
+               alt="SatMAE Test Accuracy" 
+               style="height: 400px; width: 100%; object-fit: contain;">
+          <p class="has-text-centered is-size-5">SatMAE Prediction Accuracy</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Grassland degradation on the Mongolian Plateau is accelerating under the combined pressure of climate change and human activities.
+            In this project, we frame the prediction of bare soil one year in advance as a supervised classification problem with a resolution of 10m.
+            For each pixel or 224x224 Sentinel-2 chip, we predict whether it will be bare or non-bare-dominated in year <em>t+1</em>.
+          </p>
+          <p>
+            Overall, our findings show that short-horizon desertification at 10m resolution is meaningfully predictable.
+            Transformer models (SatMAE) that have representation learning capabilities can substantially outperform traditional feature-engineered classifiers for this task.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Data & Methodology</h2>
+        <div class="content has-text-justified">
+          <p>
+            We define land degradation forecasting as a binary classification problem. We compare <strong>Random Forest</strong> (feature engineering) against <strong>SatMAE</strong> (representation learning).
+            The model inputs include multi-season Sentinel-2 mosaics and TerraClimate precipitation statistics.
+          </p>
+        </div>
+        
+        <div class="columns is-vcentered">
+          <div class="column has-text-centered">
+            <h4 class="title is-5">Bare Ground (Dunes)</h4>
+            <img src="./static/images/t0.png" alt="Bare Ground Chip" style="max-width: 224px; border: 1px solid #ddd;"/>
+            <p>Example of bare soil training chip (Kubuqi).</p>
+          </div>
+          <div class="column has-text-centered">
+             <h4 class="title is-5">Vegetation (Grassland)</h4>
+            <img src="./static/images/t3.png" alt="Vegetation Chip" style="max-width: 224px; border: 1px solid #ddd;"/>
+            <p>Example of vegetation training chip (East MN).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Key Findings</h2>
+        <div class="content has-text-justified">
+          <ul>
+             <li>
+                <strong>Kubuqi (Deterministic System):</strong> The SatMAE forecaster attained <strong>98.4% top-1 accuracy</strong>.
+                The system exhibits strong short-term memory, driven by stable dune interiors and engineered shelter belts.
+             </li>
+             <li>
+                <strong>East MN (Policy-Driven):</strong> Results show a sharp reduction in bare area, consistent with net revegetation policies.
+                Recovery is better explained by human interventions visible in imagery rather than short-term climate anomalies.
+             </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{zhou2026grassland,
+  author    = {Zhou, Xiaoya and Zhou, Cindy and Xu, Xinyang and Huang, Eric},
+  title     = {Grassland Degradation on the Mongolian Plateau: Classification and Predictive Modeling},
+  institution = {University of Southern California},
+  year      = {2026},
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="#" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+      <p>
+        Website template from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
